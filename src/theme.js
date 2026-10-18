@@ -30,6 +30,6 @@ export const typography = {
     color: colors.text,
     lineHeight: 28,
     marginBottom: 24,
-    textAlign: 'justify',
+    textAlign: 'center',
   },
 };

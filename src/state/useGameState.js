@@ -1,10 +1,15 @@
 import { useState, useCallback } from 'react';
 
 const INITIAL_STATE = {
-  reputation: 0,
-  hasSilverSword: false,
-  metSorceress: false,
-  trustLevel: 0,
+  evidence: null,
+  eustachyPunished: null,
+  pastodiSpared: null,
+  truthKnown: false,
+  checkedHead: false,
+  checkedChest: false,
+  checkedAbdomen: false,
+  checkedHands: false,
+  checkedGenitals: false
 };
 
 export const useGameState = () => {
