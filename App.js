@@ -1,64 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import GameScreen from './src/screens/GameScreen';
 import { colors, typography } from './src/theme';
-
-// Путь к JSON в папке public. 
-// При сборке Expo скопирует его в корень сайта.
-const STORY_URL = './data/story.json'; 
+import { loadStory } from './src/api/dataLoader';
 
 export default function App() {
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function loadStory() {
+    async function init() {
       try {
-        // Cache-busting: добавляем время, чтобы браузер не кэшировал старый файл
-        const url = `${STORY_URL}?v=${Date.now()}`;
-        
-        const response = await fetch(url, {
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0',
-          },
-        });
-
-        if (!response.ok) throw new Error('Network response was not ok');
-        
-        const data = await response.json();
-        setStory(data);
-      } catch (error) {
-        console.error('Не удалось загрузить сюжет:', error);
-        // Здесь можно оставить локальный фоллбэк (импортируя его как обычный JS объект), 
-        // но раз мы используем public, лучше просто показать ошибку.
+        const result = await loadStory();
+        setStory(result.story);
+        console.log(`Загружено. Версия: ${result.version}. Из кэша: ${result.fromCache}`);
+      } catch (e) {
+        console.error(e);
+        setError('Не удалось загрузить сюжет. Проверьте интернет.');
       } finally {
         setLoading(false);
       }
     }
-
-    loadStory();
+    init();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={colors.primary} />
-        <Text style={[typography.body, { marginTop: 16 }]}>Загрузка сюжета...</Text>
-      </View>
-    );
-  }
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text style={[typography.body, { marginTop: 16 }]}>Загрузка сюжета...</Text>
+        </View>
+      );
+    }
 
-  if (!story) {
-    return (
-      <View style={styles.center}>
-        <Text style={typography.body}>Ошибка загрузки данных. Проверьте интернет.</Text>
-      </View>
-    );
-  }
+    if (error) {
+      return (
+        <View style={styles.center}>
+          <Text style={typography.body}>{error}</Text>
+        </View>
+      );
+    }
 
-  return <GameScreen storyData={story} />;
+    return <GameScreen storyData={story} />;
+  };
+
+  return (
+    <SafeAreaProvider>
+      {renderContent()}
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -67,5 +60,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.background,
+    padding: 20,
   },
 });

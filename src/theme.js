@@ -1,7 +1,7 @@
 export const colors = {
   background: '#121212',
   surface: '#1E1E1E',
-  primary: '#D4AF37', // Золотой
+  primary: '#D4AF37',
   text: '#E0E0E0',
   textMuted: '#A0A0A0',
   danger: '#CF6679',
@@ -14,6 +14,16 @@ export const typography = {
     color: colors.primary,
     marginBottom: 16,
     textAlign: 'center',
+  },
+  endingTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.primary,
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 16,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
   },
   body: {
     fontSize: 18,

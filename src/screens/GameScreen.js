@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ChoiceButton from '../components/ChoiceButton';
 import { colors, typography } from '../theme';
 import { useGameState } from '../state/useGameState'; 
+import { BASE } from '../api/config';
 
 export default function GameScreen({ storyData }) {
-  // 🆕 Достаем состояние и функции из нашего хука
   const { gameState, applyEffects, resetState } = useGameState();
 
   const [currentNodeId, setCurrentNodeId] = useState(storyData.start);
@@ -13,27 +14,21 @@ export default function GameScreen({ storyData }) {
   
   const currentNode = storyData.nodes[currentNodeId];
 
-  // Сбрасываем лоадер картинки при смене узла
   useEffect(() => {
     setIsImageLoading(true);
   }, [currentNodeId]);
 
   const handleChoice = (choice) => {
-    // Если в JSON у выбора есть флаг reset: true
     if (choice.reset) {
-      resetState(); // 🆕 Сбрасываем стейт через хук
+      resetState();
       setCurrentNodeId(storyData.start);
       return;
     }
 
-    // Применяем эффекты (изменяем переменные)
-    applyEffects(choice.effects); // 🆕 Используем функцию из хука
-
-    // Переходим к следующему узлу
+    applyEffects(choice.effects);
     setCurrentNodeId(choice.next);
   };
 
-  // Фильтруем доступные выборы (проверяем conditions)
   const availableChoices = currentNode.choices.filter((choice) => {
     if (!choice.conditions) return true;
     return Object.entries(choice.conditions).every(
@@ -41,17 +36,22 @@ export default function GameScreen({ storyData }) {
     );
   });
 
+  const imageUri = currentNode.image
+    ? (currentNode.image.startsWith('http')
+        ? currentNode.image
+        : `${BASE.replace(/\/?data$/, '')}${currentNode.image}`)
+    : null;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.statsBar}>
         <Text style={styles.statsText}>Репутация: {gameState.reputation}</Text>
         <Text style={styles.statsText}>Доверие: {gameState.trustLevel}</Text>
-        {/* Меч и Чародейку можно вывести для теста */}
         <Text style={styles.statsText}>Меч: {gameState.hasSilverSword ? 'Да' : 'Нет'}</Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {currentNode.image && (
+        {imageUri && (
           <View style={styles.imageWrapper}>
             {isImageLoading && (
               <View style={styles.imageLoader}>
@@ -59,7 +59,7 @@ export default function GameScreen({ storyData }) {
               </View>
             )}
             <Image 
-              source={{ uri: currentNode.image }} 
+              source={{ uri: imageUri }} 
               style={styles.sceneImage} 
               resizeMode="cover"
               onLoadEnd={() => setIsImageLoading(false)}
@@ -68,6 +68,12 @@ export default function GameScreen({ storyData }) {
         )}
 
         <View style={styles.textContainer}>
+          {currentNode.endingTitle && (
+            <Text style={typography.endingTitle}>
+              {currentNode.endingTitle}
+            </Text>
+          )}
+
           <Text style={typography.body}>{currentNode.text}</Text>
         </View>
 
@@ -91,8 +97,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   scrollContent: {
-    padding: 20,
     flexGrow: 1,
+    padding: 20,
   },
   statsBar: {
     flexDirection: 'row',
@@ -109,6 +115,17 @@ const styles = StyleSheet.create({
   imageWrapper: {
     position: 'relative',
     marginBottom: 20,
+    width: '100%',
+    maxWidth: 600,
+    alignSelf: 'center',
+  },
+  sceneImage: {
+    width: '100%',
+    aspectRatio: 16 / 9, 
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#333',
+    backgroundColor: '#000',
   },
   imageLoader: {
     position: 'absolute',
@@ -119,19 +136,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     borderRadius: 12,
   },
-  sceneImage: {
-    width: '100%',
-    height: 250,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: '#333',
-    backgroundColor: '#000',
-  },
   textContainer: {
     minHeight: 150,
     marginBottom: 20,
   },
   choicesContainer: {
     marginTop: 'auto',
+    paddingBottom: 20,
   },
 });

@@ -3,7 +3,7 @@
   "nodes": {
     "crossroads": {
       "text": "Вы на перепутье. Слева — деревня, где пропадают люди. Справа — заброшенная мельница, откуда слышен вой.",
-      "image": "./art/crossroads.jpg",
+      "image": "/art/crossroads.jpg",
       "choices": [
         { "text": "Пойти в деревню", "next": "village_entrance" },
         { "text": "Пойти на мельницу", "next": "mill_entrance" }
@@ -11,7 +11,7 @@
     },
     "village_entrance": {
       "text": "Стража преграждает путь: «Ведьмакам здесь не рады».",
-      "image": "./art/village_entrance.jpg",
+      "image": "/art/village_entrance.jpg",
       "choices": [
         {
           "text": "Показать медальон и представиться",
@@ -27,7 +27,7 @@
     },
     "village_guard_friendly": {
       "text": "Стражник кивает: «Нам нужна помощь. В лесу завелась тварь».",
-      "image": "./art/guard_friendly.jpg",
+      "image": "/art/guard_friendly.jpg",
       "choices": [
         {
           "text": "Согласиться помочь",
@@ -42,14 +42,14 @@
     },
     "village_bypass": {
       "text": "Вы обходите деревню стороной, но слышите вой со стороны мельницы. Придется идти туда.",
-      "image": "./art/village_bypass.jpg",
+      "image": "/art/village_bypass.jpg",
       "choices": [
         { "text": "Идти к мельнице", "next": "mill_entrance" }
       ]
     },
     "negotiate_reward": {
       "text": "Стражник хмурится: «Сначала помоги, ведьмак, а потом поговорим о монетах». Он указывает на лес.",
-      "image": "./art/negotiate.jpg",
+      "image": "/art/negotiate.jpg",
       "choices": [
         { 
           "text": "Согласиться (Репутация упала)", 
@@ -60,7 +60,7 @@
     },
     "mill_entrance": {
       "text": "На мельнице вы находите следы когтей и странный амулет.",
-      "image": "./art/mill.jpg",
+      "image": "/art/mill.jpg",
       "choices": [
         {
           "text": "Взять амулет",
@@ -75,21 +75,21 @@
     },
     "mill_amulet": {
       "text": "Амулет холодит руку. Кажется, он принадлежал чародейке... Вы чувствуете в кармане тяжесть серебряного меча.",
-      "image": "./art/amulet.jpg",
+      "image": "/art/amulet.jpg",
       "choices": [
         { "text": "Выйти на улицу", "next": "forest_hunt" }
       ]
     },
     "mill_deeper": {
       "text": "Вы заходите глубже и находите лишь обглоданные кости. Здесь больше нечего делать.",
-      "image": "./art/bones.jpg",
+      "image": "/art/bones.jpg",
       "choices": [
         { "text": "Выйти на улицу", "next": "forest_hunt" }
       ]
     },
     "forest_hunt": {
       "text": "Вы выслеживаете тварь. Это оказывается молодая виверна.",
-      "image": "./art/forest.jpg",
+      "image": "/art/forest.jpg",
       "choices": [
         {
           "text": "Атаковать серебряным мечом",
@@ -103,14 +103,16 @@
         }
       ]
     },
-    "fight_wyvern": {
-      "text": "Благодаря серебряному мечу вы быстро расправляетесь с тварью. Деревня спасена! (Конец демо)",
-      "image": "./art/victory.jpg",
+      "fight_wyvern": {
+      "text": "Благодаря серебряному мечу вы быстро расправляетесь с тварью. Жители деревни выдыхают с облегчением и благодарят вас.",
+      "image": "/art/victory.jpg",
+      "endingTitle": "Эпилог: Истинный ведьмак",
       "choices": [{ "text": "Начать заново", "next": "crossroads", "reset": true }]
     },
     "scare_wyvern": {
-      "text": "Виверна испугалась огня и улетела, но деревня недовольна, что вы не убили тварь. (Конец демо)",
-      "image": "./art/igni.jpg",
+      "text": "Виверна испугалась огня и улетела, но деревня недовольна, что вы не убили тварь. Вас больше не приглашают на контракты.",
+      "image": "/art/igni.jpg",
+      "endingTitle": "Эпилог: Огненный испуг",
       "choices": [{ "text": "Начать заново", "next": "crossroads", "reset": true }]
     }
   }
