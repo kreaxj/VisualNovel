@@ -60,7 +60,7 @@
         },
         { 
           "text": "Довольно, я уже знаю достаточно", 
-          "next": "make_conclusion", 
+          "next": "make_conclusion1", 
           "conditions": { 
             "checkedHead": true, 
             "checkedChest": true, 
@@ -102,9 +102,9 @@
       "effects": { "checkedGenitals": true },
       "choices": [ { "text": "Продолжить осмотр", "next": "autopsy" } ]
     },
-    "make_conclusion": {
+    "make_conclusion1": {
       "text": "Сопоставив все улики, Геральт приходит к выводу, что это наказание. Он хочет осмотреть труп еще раз, однако появляется Губерт Рейк, местный коронер, пришедший провести аутопсию. Он оказывается знакомым Иоахима. В ходе разговора Геральт узнает, что тело плотника нашли в собственной мастерской, к югу от рынка. Сразу у ворот на Застенье, где напали на бедную трубадурку. Тело привез Евстахий, сборщик останков.",
-      "image": "/art/conclusion.jpg",
+      "image": "/art/conclusion1.jpg",
       "choices": [
         { "text": "Далее", "next": "make_conclusion2" }
       ]
@@ -112,6 +112,13 @@
     "make_conclusion2": {
       "text": "Разговор прервал преподобный Натаниэль, недовольный присутствием посторонних. Однако Губерт прикрыл героев и вывел через другой выход. После этого Геральт решает пройтись по всем местам с возможными зацепками.",
       "image": "/art/conclusion2.jpg",
+      "choices": [
+        { "text": "Далее", "next": "make_conclusion3" }
+      ]
+    },
+    "make_conclusion3": {
+      "text": "Ниточек много. Мастерская этого плотника, сборщик тел, который его нашел, переулок, где напали на Присциллу.",
+      "image": "/art/conclusion3.jpg",
       "choices": [
         { 
           "text": "Осмотреть переулок, в котором напали на Присциллу", 
@@ -165,7 +172,7 @@
       "image": "/art/carpenter4.jpg",
       "effects": { "checkedCarpenter": true },
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion3",
         "next_conditions": [
             { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
             { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
@@ -193,7 +200,7 @@
       "image": "/art/lane3.jpg",
       "effects": { "checkedLane": true },
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion3",
         "next_conditions": [
             { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
             { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
@@ -231,7 +238,7 @@
           "effects": { "eustachyPunished": true, "foundEustachy": true } },
         { 
           "text": "Просто уйти", 
-          "next": "make_conclusion2",
+          "next": "make_conclusion3",
           "effects": { "eustachyPunished": false, "foundEustachy": true },
           "next_conditions": [
             { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
@@ -245,7 +252,7 @@
       "text": "Евстахий смачно получает в нос и падает.",
       "image": "/art/eustachy4.jpg",
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion3",
         "next_conditions": [
             { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
             { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
@@ -259,7 +266,7 @@
       "image": "/art/guard_arrives.jpg",
       "effects": { "guardTriggered": true },
       "choices": [
-        { "text": "Далее", "next": "make_conclusion2" }
+        { "text": "Далее", "next": "make_conclusion3" }
       ]
     },
     "korner_hospital": {
