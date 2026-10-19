@@ -92,25 +92,27 @@ export default function GameScreen({ storyData }) {
     <SafeAreaView style={styles.container}>
       <StatsBar gameState={gameState} />
 
+      {imageUri && (
+        <View style={styles.imageOuterContainer}>
+          <View style={styles.imageWrapper}>
+            {isImageLoading && (
+              <View style={styles.imageLoader}>
+                <ActivityIndicator size="large" color={colors.primary} />
+              </View>
+            )}
+            <Image 
+              source={{ uri: imageUri }} 
+              style={styles.sceneImage} 
+              resizeMode="cover"
+              onLoadEnd={() => setIsImageLoading(false)}
+            />
+          </View>
+        </View>
+      )}
+
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.contentWrapper}>
           
-          {imageUri && (
-            <View style={styles.imageWrapper}>
-              {isImageLoading && (
-                <View style={styles.imageLoader}>
-                  <ActivityIndicator size="large" color={colors.primary} />
-                </View>
-              )}
-              <Image 
-                source={{ uri: imageUri }} 
-                style={styles.sceneImage} 
-                resizeMode="cover"
-                onLoadEnd={() => setIsImageLoading(false)}
-              />
-            </View>
-          )}
-
           <View style={styles.textContainer}>
             {currentNode.endingTitle && (
               <Text style={typography.endingTitle}>
@@ -146,28 +148,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  scrollContent: {
-    flexGrow: 1,
-    padding: 20,
-    alignItems: 'center',
-  },
-  contentWrapper: {
+  imageOuterContainer: {
     width: '100%',
     maxWidth: 800,
-    flex: 1,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    marginTop: 20,
   },
   imageWrapper: {
     position: 'relative',
-    marginBottom: 24,
     width: '100%',
+    borderRadius: 12,
+    overflow: 'hidden',
   },
   sceneImage: {
     width: '100%',
     aspectRatio: 16 / 9, 
-    borderRadius: 12,
     borderWidth: 2,
     borderColor: '#333',
     backgroundColor: '#000',
+    borderRadius: 12,
   },
   imageLoader: {
     position: 'absolute',
@@ -176,7 +176,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     backgroundColor: '#1E1E1E',
-    borderRadius: 12,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    alignItems: 'center',
+  },
+  contentWrapper: {
+    width: '100%',
+    maxWidth: 800,
+    flex: 1,
   },
   textContainer: {
     marginBottom: 30,
