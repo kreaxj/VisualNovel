@@ -9,7 +9,10 @@ const INITIAL_STATE = {
   checkedChest: false,
   checkedAbdomen: false,
   checkedHands: false,
-  checkedGenitals: false
+  checkedGenitals: false,
+  foundEustachy: false,
+  checkedCarpenter: false,
+  checkedLane: false
 };
 
 export const useGameState = () => {
