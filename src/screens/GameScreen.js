@@ -5,7 +5,7 @@ import ChoiceButton from '../components/ChoiceButton';
 import StatsBar from '../components/StatsBar';
 import { colors, typography } from '../theme';
 import { useGameState } from '../state/useGameState'; 
-import { BASE } from '../api/config';
+import { BASE, getImageUri } from '../api/config';
 
 export default function GameScreen({ storyData }) {
   const { gameState, applyEffects, resetState } = useGameState();
@@ -82,11 +82,7 @@ export default function GameScreen({ storyData }) {
     );
   }) : [];
 
-  const imageUri = currentNode.image
-    ? (currentNode.image.startsWith('http')
-        ? currentNode.image
-        : `${BASE.replace(/\/?data$/, '')}${currentNode.image}`)
-    : null;
+  const imageUri = getImageUri(currentNode.image);
 
   return (
     <SafeAreaView style={styles.container}>
