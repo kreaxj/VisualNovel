@@ -2,7 +2,7 @@
   "expo": {
     "name": "Deadly Sins",
     "slug": "VisualNovel",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -14,7 +14,8 @@
         "backgroundColor": "#0e0e0f",
         "foregroundImage": "./assets/icon.png"
       },
-      "package": "com.kreaxj.VisualNovel"
+      "package": "com.kreaxj.VisualNovel",
+      "icon": "./assets/icon.png"
     },
     "web": {
       "favicon": "./assets/icon.png",
