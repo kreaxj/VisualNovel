@@ -12,7 +12,8 @@ const INITIAL_STATE = {
   checkedGenitals: false,
   foundEustachy: false,
   checkedCarpenter: false,
-  checkedLane: false
+  checkedLane: false,
+  guardTriggered: false
 };
 
 export const useGameState = () => {

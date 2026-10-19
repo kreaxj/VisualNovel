@@ -129,7 +129,7 @@
           "conditions": { "foundEustachy": false } 
         },
         { 
-          "text": "Поговорить с корнером", 
+          "text": "Поговорить с коронером", 
           "next": "korner_hospital", 
           "conditions": { 
             "checkedLane": true, 
@@ -165,7 +165,13 @@
       "image": "/art/carpenter4.jpg",
       "effects": { "checkedCarpenter": true },
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2" }
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        "next_conditions": [
+            { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedCarpenter": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" }
+          ]
+        }
       ]
     },
     "check_lane1": {
@@ -187,9 +193,15 @@
       "image": "/art/lane3.jpg",
       "effects": { "checkedLane": true },
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2" }
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        "next_conditions": [
+            { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedCarpenter": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" }
+          ]
+        }
       ]
-    },
+    }, 
     "find_eustachy1": {
       "text": "В одном из переулков Геральт находит Евстахия рядом со множеством трупом.",
       "image": "/art/eustachy1.jpg",
@@ -220,7 +232,12 @@
         { 
           "text": "Просто уйти", 
           "next": "make_conclusion2",
-          "effects": { "eustachyPunished": false, "foundEustachy": true }
+          "effects": { "eustachyPunished": false, "foundEustachy": true },
+          "next_conditions": [
+            { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedCarpenter": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" }
+          ]
         }
       ]
     },
@@ -228,7 +245,21 @@
       "text": "Евстахий смачно получает в нос и падает.",
       "image": "/art/eustachy4.jpg",
       "choices": [
-        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2" }
+        { "text": "Исследовать следующую зацепку", "next": "make_conclusion2",
+        "next_conditions": [
+            { "condition": { "checkedLane": true, "checkedCarpenter": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedLane": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" },
+            { "condition": { "checkedCarpenter": true, "foundEustachy": true, "guardTriggered": false }, "next": "guard_arrives" }
+          ]
+        }
+      ]
+    },
+    "guard_arrives": {
+      "text": "Пока Геральт шел к следующей зацепке, к нему подошел стражник. Он сообщил, что Коронер вызывает его к себе. Новая жертва. Главные двери для него открыты... И чтоб он приходил как можно скорее.",
+      "image": "/art/guard_arrives.jpg",
+      "effects": { "guardTriggered": true },
+      "choices": [
+        { "text": "Далее", "next": "make_conclusion2" }
       ]
     },
     "korner_hospital": {

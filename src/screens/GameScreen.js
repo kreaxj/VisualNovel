@@ -49,15 +49,34 @@ export default function GameScreen({ storyData }) {
       return;
     }
 
+    const newState = { ...gameState };
     if (choice.effects) {
+      Object.assign(newState, choice.effects);
       applyEffects(choice.effects);
     }
-    
-    setCurrentNodeId(choice.next);
+
+    let nextNode = choice.next;
+    if (choice.next_conditions) {
+      const matched = choice.next_conditions.find(nc => 
+        Object.entries(nc.condition).every(([k, v]) => newState[k] === v)
+      );
+      if (matched) nextNode = matched.next;
+    }
+
+    setCurrentNodeId(nextNode);
   };
 
   const availableChoices = currentNode.choices ? currentNode.choices.filter((choice) => {
     if (!choice.conditions) return true;
+
+    if (Array.isArray(choice.conditions)) {
+      return choice.conditions.some((conditionGroup) =>
+        Object.entries(conditionGroup).every(
+          ([key, value]) => gameState[key] === value
+        )
+      );
+    }
+
     return Object.entries(choice.conditions).every(
       ([key, value]) => gameState[key] === value
     );
