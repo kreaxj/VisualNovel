@@ -1,28 +1,32 @@
 {
   "expo": {
-    "name": "VisualNovel",
+    "name": "Deadly Sins",
     "slug": "VisualNovel",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+        "backgroundColor": "#0e0e0f",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "package": "com.kreaxj.VisualNovel"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/icon.png",
       "bundler": "metro"
     },
     "experiments": {
       "baseUrl": "/VisualNovel"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "73d8ddd1-6d94-47c4-8444-1dfc528040da"
+      }
     }
   }
 }
